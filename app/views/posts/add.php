@@ -16,5 +16,15 @@
       </div>
       <input type="submit" class="btn btn-success" value="Submit">
     </form>
+   <!-- Форма загрузки изображения -->
+<form action="<?php echo URLROOT; ?>/posts/add" method="post" enctype="multipart/form-data">
+    <!-- Ваши поля формы -->
+
+    <div class="form-group">
+        <label for="image">Image:</label>
+        <input type="file" name="image" class="form-control-file">
+    </div>
+</form>
+
   </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

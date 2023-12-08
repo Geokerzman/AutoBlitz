@@ -15,7 +15,7 @@
     
         // Get total number of posts
         $totalPosts = $this->postModel->getTotalPosts();
-    
+     
         // Calculate total number of pages
         $totalPages = ceil($totalPosts / $postsPerPage);
     
@@ -41,48 +41,62 @@
     
 
     public function add(){
-      if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        // Sanitize POST array
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-        $data = [
-          'title' => trim($_POST['title']),
-          'body' => trim($_POST['body']),
-          'user_id' => $_SESSION['user_id'],
-          'title_err' => '',
-          'body_err' => ''
-        ];
-
-        // Validate data
-        if(empty($data['title'])){
-          $data['title_err'] = 'Please enter title';
-        }
-        if(empty($data['body'])){
-          $data['body_err'] = 'Please enter body text';
-        }
-
-        // Make sure no errors
-        if(empty($data['title_err']) && empty($data['body_err'])){
-          // Validated
-          if($this->postModel->addPost($data)){
-            flash('post_message', 'Post Added');
-            redirect('posts');
-          } else {
-            die('Something went wrong');
-          }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize POST array
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+            $data = [
+                'title' => trim($_POST['title']),
+                'body' => trim($_POST['body']),
+                'user_id' => $_SESSION['user_id'],
+                'title_err' => '',
+                'body_err' => '',
+            ];
+    
+            // Validate data
+            if (empty($data['title'])) {
+                $data['title_err'] = 'Please enter title';
+            }
+            if (empty($data['body'])) {
+                $data['body_err'] = 'Please enter body text';
+            }
+    
+            // Check if an image is uploaded
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                $image_tmp = $_FILES['image']['tmp_name'];
+                $image_name = $_FILES['image']['name'];
+        
+                // Move the uploaded file to the destination directory
+                move_uploaded_file($image_tmp, APPROOT . '/public/img/' . $image_name);
+        
+                // Set the image path in the $data array
+                $data['image'] = '/img/' . $image_name;
+            } else {
+                // If no image is uploaded, set the image path to null or an empty string, depending on your logic
+                $data['image'] = null; // Or $data['image'] = ''; depending on your preference
+            }
+            // Make sure no errors
+            if (empty($data['title_err']) && empty($data['body_err'])) {
+                // Validated
+                if ($this->postModel->addPost($data)) {
+                    flash('post_message', 'Post Added');
+                    redirect('posts');
+                } else {
+                    die('Something went wrong');
+                }
+            } else {
+                // Load view with errors
+                $this->view('posts/add', $data);
+            }
+    
         } else {
-          // Load view with errors
-          $this->view('posts/add', $data);
+            $data = [
+                'title' => '',
+                'body' => '',
+            ];
+    
+            $this->view('posts/add', $data);
         }
-
-      } else {
-        $data = [
-          'title' => '',
-          'body' => ''
-        ];
-  
-        $this->view('posts/add', $data);
-      }
     }
 
     public function edit($id){
