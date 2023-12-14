@@ -1,0 +1,38 @@
+{% include 'inc/header.php' %}
+
+<a href="{{ URLROOT }}/posts" class="btn btn-light"><i class="fa fa-backward"></i> Back</a>
+<br>
+<h1>{{ data.post.title }}</h1>
+<div class="bg-secondary text-white p-2 mb-3">
+    Written by {{ data.user.name }} on {{ data.post.created_at }}
+</div>
+{% set userGroup = app.session.get('user_group') ?? null %}
+{% if userGroup == 2 %}
+    <div class="p-2 mb-3">
+        {{ data.post.year }}
+    </div>
+{% endif %}
+
+<div class="p-2 mb-3">
+    {{ data.post.brand }}
+</div>
+
+<div class="p-2 mb-3">
+    {{ data.post.model }}
+</div>
+
+{% if data.post.image_path %}
+    <img src="{{ URLROOT ~ data.post.image_path }}" class="img-fluid" alt="Post Image">
+{% endif %}
+
+<p>{{ data.post.description }}</p>
+
+{% if userGroup == 2 %}
+    <hr>
+    <a href="{{ URLROOT }}/posts/edit/{{ data.post.id }}" class="btn btn-dark">Edit</a>
+    <form class="pull-right" action="{{ URLROOT }}/posts/delete/{{ data.post.id }}" method="post">
+        <input type="submit" value="Delete" class="btn btn-danger">
+    </form>
+{% endif %}
+
+{% include 'inc/footer.php' %}

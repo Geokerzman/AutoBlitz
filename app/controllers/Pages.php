@@ -7,6 +7,8 @@
     public function index(){
       if(isLoggedIn()){
         redirect('posts');
+      }else{
+        redirect('posts');
       }
 
       $data = [

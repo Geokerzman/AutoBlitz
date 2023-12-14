@@ -80,6 +80,9 @@ video {
     animation: blur 12s ease-in;
 
 }
+.add-p{
+    justify-content: flex-end;
+}
 /*.video_background{*/
 
 /*    position: absolute;*/

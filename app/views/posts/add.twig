@@ -1,0 +1,47 @@
+{% include 'inc/header.php' %}
+<a href="{{ URLROOT }}/posts" class="btn btn-light"><i class="fa fa-backward"></i> Back</a>
+<div class="card card-body bg-light mt-5">
+    <h2>Add Post</h2>
+    <p>Create a post with this form</p>
+    <form action="{{ URLROOT }}/posts/add" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title: <sup>*</sup></label>
+            <input type="text" name="title" class="form-control form-control-lg {{ data.title_err ? 'is-invalid' : '' }}" value="{{ data.title }}">
+            <span class="invalid-feedback">{{ data.title_err }}</span>
+        </div>
+        <div class="form-group">
+            <label for="brand">Марка: <sup>*</sup></label>
+            <select name="brand" class="form-control form-control-lg {{ data.brand_err ? 'is-invalid' : '' }}">
+                {% for brand in data.brands %}
+                    <option value="{{ brand }}" {{ (data.brand == brand) ? 'selected' : '' }}>{{ brand }}</option>
+                {% endfor %}
+            </select>
+            <span class="invalid-feedback">{{ data.brand_err }}</span>
+        </div>
+        <div class="form-group">
+            <label for="model">Модель: <sup>*</sup></label>
+            <input type="text" name="model" class="form-control form-control-lg {{ data.model_err ? 'is-invalid' : '' }}" value="{{ data.model }}">
+            <span class="invalid-feedback">{{ data.model_err }}</span>
+        </div>
+        <div class="form-group">
+            <label for="description">Описание: <sup>*</sup></label>
+            <textarea name="description" class="form-control form-control-lg {{ data.description_err ? 'is-invalid' : '' }}">{{ data.description }}</textarea>
+            <span class="invalid-feedback">{{ data.description_err }}</span>
+        </div>
+        <div class="form-group">
+            <label for="year">Год: <sup>*</sup></label>
+            <select name="year" class="form-control form-control-lg {{ data.year_err ? 'is-invalid' : '' }}">
+                {% for year in data.years %}
+                    <option value="{{ year }}" {{ (data.year == year) ? 'selected' : '' }}>{{ year }}</option>
+                {% endfor %}
+            </select>
+            <span class="invalid-feedback">{{ data.year_err }}</span>
+        </div>
+        <div class="form-group">
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="submit" value="Upload Image" name="submit">
+        </div>
+        <button type="submit" class="btn btn-success">Send</button>
+    </form>
+</div>
+{% include 'inc/footer.php' %}
