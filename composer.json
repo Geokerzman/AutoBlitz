@@ -1,5 +1,14 @@
 {
     "require": {
         "twig/twig": "3.7.1"
+    },
+    "config": {
+        "disable-tls": true},
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://repo.packagist.org"
+        }
     }
 }
+

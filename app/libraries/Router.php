@@ -8,7 +8,6 @@ class Router
     {
         $this->routes['/' . PROJECT_NAME_FOLDER . $url] = $template;
     }
-
     public function dispatch($url)
     {
 
@@ -20,13 +19,16 @@ class Router
             // Handle 404 Not Found
             http_response_code(404);
             echo '404 Not Found';
+
         }
     }
-
     private function renderTemplate($template)
     {
         global $twig; // Assuming $twig is available globally
 
-        echo $twig->render($template);
+        //LEFT FOR DEBUG
+
+//        echo $twig->render($template);
     }
 }
+
