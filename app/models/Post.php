@@ -176,9 +176,6 @@ class Post
         $this->db->bind(':description', $data['description']);
         $this->db->bind(':year', $data['year']);
         $this->db->bind(':image_path', $data['image_path']); // Add the image path
-        // $this->db->bind(':image', $data['image'], PDO::PARAM_LOB);
-
-        // echo "Last SQL query: " . $this->db->getLastQuery();
 
         if ($this->db->execute()) {
             return true;

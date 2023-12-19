@@ -187,16 +187,6 @@ class Posts extends Controller
                 }
                 echo "Data to be inserted: ";
 
-                // if ($this->postModel->addPost($data)) {
-                //     flash('post_message', 'Post Added');
-                //     redirect('posts');
-                // } else {
-                //     die('Something went wrong');
-                // }
-                // } else {
-                //     // Load view with errors
-                //     $this->view('posts/add', $data);
-                // }
 
             } else {
                 // Load view with errors
@@ -298,6 +288,12 @@ class Posts extends Controller
 
             // Check for owner
             if ($post->user_id != $_SESSION['user_id']) {
+                redirect('posts');
+            }
+            // Check for user_group
+            $userGroup = isset($_SESSION['user_group']) ? $_SESSION['user_group'] : null;
+            if ($userGroup !== 2) {
+                // User does not have the required user_group
                 redirect('posts');
             }
 

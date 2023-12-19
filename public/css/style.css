@@ -1,3 +1,6 @@
+:root {
+    --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
+}
 #mainNavigation a {
     font-family: 'Cabin', sans-serif;
     font-size:14px;
@@ -83,15 +86,45 @@ video {
 .add-p{
     justify-content: flex-end;
 }
-/*.video_background{*/
-
-/*    position: absolute;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    left: 0;*/
-/*    top: 0;*/
-/*    background: #ffffff;*/
-/*}*/
+.img-fluid{
+    max-height: 400px;
+    max-width: 500px;
+}
 
 
 
+body {
+    background: #b0b0b0 !important;
+}
+
+.card {
+    background: #222;
+    border: 1px solid #dd2476;
+    color: rgba(250, 250, 250, 0.8);
+    margin-bottom: 2rem;
+}
+
+.btn {
+    border: 1px solid;
+    border-image-slice: 1;
+    background: var(--gradient) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    border-image-source:  var(--gradient) !important;
+    text-decoration: none;
+    transition: all .4s ease;
+}
+
+.btn:hover, .btn:focus {
+    background: var(--gradient) !important;
+    -webkit-background-clip: none !important;
+    -webkit-text-fill-color: #fff !important;
+    border: 1px solid #fff !important;
+    box-shadow: #222 1px 0 10px;
+    text-decoration: underline;
+}
+
+.show-card{
+    max-width: 900px;
+   justify-content: center;
+}

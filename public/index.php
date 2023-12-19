@@ -5,7 +5,7 @@ require_once '../vendor/autoload.php';
 $loader = new \Twig\Loader\FilesystemLoader('../app/views');
 
 $twig = new \Twig\Environment($loader);
-
+$twig->addGlobal('URLROOT', 'http://localhost/autoblitz');
 
 
 // Init Core Library

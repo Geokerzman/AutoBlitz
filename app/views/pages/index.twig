@@ -1,9 +1,19 @@
 {% include 'inc/header.twig' %}
-{% include 'inc/background_main.php' %}
- <div class="jumbotron jumbotron-flud text-center">
-   <div class="container">
-   <h1 class="display-3">{{ title }}</h1>
-   <p class="lead">{{ description }}</p>
-   </div>
+{% include 'inc/background_main.twig' %}
+<div class="jumbotron jumbotron-flud text-center">
+    <div class="container">
+        <div>
+            <div class="container hero">
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-xl-5 offset-xl-1">
+                        <h1>The revolution is here.</h1>
+                        <p>Find your dream car as easy as it could only be. </p>
+                        <a class="btn btn-light btn-lg action-button" href="{{ URLROOT }}/pages/about">Learn More</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% include 'inc/footer.twig' %}

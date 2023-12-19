@@ -1,43 +1,45 @@
 {% include 'inc/header.twig' %}
-{% flash 'post_message' %}
-<div class="row mb-3">
+{#{% flash 'post_message' %}#}
+<div class="wrapping row mb-3">
     <!-- Filters Display -->
 
     <form action="{{ URLROOT }}/posts/" method="get">
         <div class="row">
-            <div class="col-md-4 mb-3">
+            <div class="col-xs-4 m-2">
                 <label for="brand" class="form-label">Марка: <sup>*</sup></label>
                 <select name="brand" id="allBrands" class="form-select form-control-lg">
                     <option value="" selected>Выберите марку</option>
-                    {% for brand in data.brands %}
-                        <option value="{{ brand }}" {{ (data.brand == brand) ? 'selected' : '' }}>{{ brand }}</option>
+                    {% for brand in brands %}
+                        <option value="{{ brand }}" {{ (brand == brand) ? 'selected' : '' }}>{{ brand }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-xs-4 m-2">
                 <label for="model" class="form-label">Модель: <sup>*</sup></label>
                 <select name="model" id="model" class="form-select form-control-lg">
                     <option value="" selected>Выберите модель</option>
-                    {% for model in data.models %}
-                        <option value="{{ model }}" {{ (data.model == model) ? 'selected' : '' }}>{{ model }}</option>
+                    {% for model in models %}
+                        <option value="{{ model }}" {{ (model == model) ? 'selected' : '' }}>{{ model }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-xs-4 m-2">
                 <label for="year" class="form-label">Год: <sup>*</sup></label>
                 <select name="year" id="year" class="form-select form-control-lg">
                     <option value="" selected>Выберите год</option>
-                    {% for year in data.years %}
-                        <option value="{{ year }}" {{ (data.year == year) ? 'selected' : '' }}>{{ year }}</option>
+                    {% for year in years %}
+                        <option value="{{ year }}" {{ (year == year) ? 'selected' : '' }}>{{ year }}</option>
                     {% endfor %}
                 </select>
             </div>
+            <div class="col-xs-4 m-2 s_input">
+            <button type="submit" class="btn btn-success">Применить фильтры</button>
+            </div>
         </div>
-        <button type="submit" class="btn btn-success">Применить фильтры</button>
     </form>
 
     <!-- Display posts regarding the search results -->
-    {% for post in data.posts %}
+    {% for post in posts %}
     {% endfor %}
 
     <!-- Pages separation -->
@@ -50,7 +52,7 @@
         </a>
     </div>
 </div>
-{% for post in data.posts %}
+{% for post in posts %}
     <div class="card card-body mb-3">
         <div class="card card-body mb-3">
             <div class="upper-bar">
@@ -58,9 +60,9 @@
                 <i class="fa fa-circle" style="color: #f1bf3f"></i>
                 <i class="fa fa-circle" style="color: #b70101"></i>
             </div>
-            <h4 class="card-title">{{ post.title }}</h4>
+            <h4 class="card-title">{{ title }}</h4>
             <div class="p-2 mb-3">
-                Written by {{ post.name }} on {{ post.postCreated }}
+                Written by {{ name }} on {{ post.postCreated }}
             </div>
             <div class="p-2 mb-3">
                 {{ post.brand }}
@@ -69,11 +71,11 @@
                 {{ post.model }}
             </div>
             <div class="p-2 mb-3">
-                {{ post.year }}
+                {{ year }}
             </div>
             {% if post.image_path %}
                 <img src="{{ URLROOT ~ post.image_path }}" class="img-fluid" alt="Post Image">
-                <p class="card-text">{{ post.description }}</p>
+                <p class="card-text">{{ description }}</p>
             {% endif %}
             <a href="{{ URLROOT }}/posts/show/{{ post.postId }}" class="btn btn-dark">More</a>
         </div>
@@ -83,30 +85,25 @@
 <!-- Pagination -->
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-        {% if data.currentPage > 1 %}
+        {% if currentPage > 1 %}
             <li class="page-item">
-                <a class="page-link" href="{{ URLROOT }}/posts/index/{{ data.currentPage - 1 }}">Previous</a>
+                <a class="page-link" href="{{ URLROOT }}/posts/index/{{ currentPage - 1 }}">Previous</a>
             </li>
         {% endif %}
 
-        {% for i in 1..data.totalPages %}
-            <li class="page-item {{ (i == data.currentPage) ? 'active' : '' }}">
+        {% for i in 1..totalPages %}
+            <li class="page-item {{ (i == currentPage) ? 'active' : '' }}">
                 <a class="page-link" href="{{ URLROOT }}/posts/index/{{ i }}">{{ i }}</a>
             </li>
         {% endfor %}
 
-        {% if data.currentPage < data.totalPages %}
+        {% if currentPage < totalPages %}
             <li class="page-item">
-                <a class="page-link" href="{{ URLROOT }}/posts/index/{{ data.currentPage + 1 }}">Next</a>
+                <a class="page-link" href="{{ URLROOT }}/posts/index/{{ currentPage + 1 }}">Next</a>
             </li>
         {% endif %}
     </ul>
 </nav>
 
-{% if data.totalPosts is defined %}
-    Total Posts: {{ data.totalPosts }}<br>
-{% else %}
-    Total Posts variable is not set.<br>
-{% endif %}
 
 {% include 'inc/footer.twig' %}

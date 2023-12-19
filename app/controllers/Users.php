@@ -162,7 +162,7 @@ class Users extends Controller
         unset($_SESSION['user_name']);
         unset($_SESSION['user_group']);
         session_destroy();
-        redirect('users/login');
+        redirect('index');
     }
 
 }
